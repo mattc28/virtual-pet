@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> pet</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="pet.js"></script>
+        <link rel="stylesheet" type="text/css" href="main.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+    </head>
+    <body>
+        <script>
+            var placeholderPet;
+            $( document ).ready(function docReady(){
+                const pet = new Pet('i is bear');
+                document.getElementById("petname").innerHTML = pet.name;
+                console.log(pet);
+                document.getElementById("age").innerHTML = "Age: "+pet.age;
+                document.getElementById("hunger").innerHTML = "Hunger: "+pet.hunger;
+                document.getElementById("fitness").innerHTML = "Fitness: "+pet.fitness;
+                document.getElementById("bear").src = "./src/bear.png";
+                placeholderPet = pet;
+            });
+            function growUp(){
+                if(aliveDetector == false){
+                    document.getElementById("bear").src = "./src/bear_f.png";
+                }
+                placeholderPet.growUp();
+                document.getElementById("age").innerHTML = "Age:"+placeholderPet.age;
+                document.getElementById("hunger").innerHTML = "Hunger:"+placeholderPet.hunger;
+                document.getElementById("fitness").innerHTML = "Fitness:"+placeholderPet.fitness;
+                if(placeholderPet.age>=25){
+                    document.getElementById("tooOld").src = "./src/stat_health2.png";
+                }
+            }
+            function feed(){
+                if(aliveDetector == false){
+                    document.getElementById("bear").src = "./src/bear_f.png";
+                }
+                placeholderPet.feed();
+                document.getElementById("age").innerHTML = "Age:"+placeholderPet.age;
+                document.getElementById("hunger").innerHTML = "Hunger:"+placeholderPet.hunger;
+                document.getElementById("fitness").innerHTML = "Fitness:"+placeholderPet.fitness;
+                if(placeholderPet.hunger<=5){
+                    document.getElementById("needFood").src = "";
+                }
+            }
+            function walk(){
+                if(aliveDetector==false){
+                    document.getElementById("bear").src = "./src/bear_f.png";
+                }
+                placeholderPet.walk();
+                document.getElementById("age").innerHTML = "Age:"+placeholderPet.age;
+                document.getElementById("hunger").innerHTML = "Hunger:"+placeholderPet.hunger;
+                document.getElementById("fitness").innerHTML = "Fitness:"+placeholderPet.fitness;
+                if(placeholderPet.fitness>=3){
+                    document.getElementById("needWalk").src = "";
+                }
+            }
+            function checkUp(){
+                if(aliveDetector==false){
+                    document.getElementById("bear").src = "./src/bear_f.png";
+                }
+                placeholderPet.checkUp();
+                if(placeholderPet.fitness<=3 && placeholderPet.hunger>=5){
+                    document.getElementById("needWalk").src = "./src/stat_walk2.png";
+                    document.getElementById("needFood").src = "./src/stat_food2.png";
+                }
+                else if(placeholderPet.fitness<=3){
+                    document.getElementById("needWalk").src = "./src/stat_walk2.png";
+                }
+                else if(placeholderPet.hunger>=5){
+                    document.getElementById("needFood").src = "./src/stat_food2.png";
+                }
+            }
+        </script>
+        <div class="title">
+            Virtual Pet
+        </div>
+        <div class="c left">
+            <div class="stats">
+                <p id="petname"></p>
+                <p id="age"></p>
+                <p id="hunger"></p>
+                <p id="fitness"></p>
+            </div>
+            <div class="para">
+                <p>Age: <br>The age of your pet. <br>(Goes up by 1 per "Grow up")</p>
+                <p>Hunger: <br>The hunger level of your pet. <br>(0: Not hungry. 10: Very hungry)</p>
+                <p>Fitness: <br>The health level of your pet. <br>(10: Healthy & fit. 0: Unfit & ill)</p>
+            </div>
+        </div>
+        <div class="c center">
+                <img id="bear" src="" />
+            <div class=btns> 
+                <button class="btn grow" onclick="growUp()">Grow up</button>
+                <button class="btn feed" onclick="feed()">Feed</button>
+                <button class="btn walk" onclick="walk()">Walk</button>
+                <button class="btn check" onclick="checkUp()">Check up</button>
+            </div>
+        </div>
+        <div class="c right">
+            <div class="status">
+                <img id="needFood" src="" />
+                <img id="needWalk" src="" />
+                <img id="tooOld" src="" />
+            </div>
+        </div>  
+    </body>
+</html>
